@@ -32,7 +32,7 @@ public sealed class PomodoroTimerService
         if (settings.CountUpEnabled)
             BeginCountUp();
         else
-            Begin(PomodoroState.Focus, settings.FocusMinutes);
+            Begin(PomodoroState.Focus, GetDuration(settings.FocusMinutes));
         _timer.Start();
     }
 
@@ -82,23 +82,28 @@ public sealed class PomodoroTimerService
         {
             CompletedFocusSessions++;
             FocusSessionCompleted?.Invoke();
-            if (!_settings.RepeatEnabled || CompletedFocusSessions >= _settings.RepeatCount || _settings.RestMinutes == 0)
+            if (!_settings.RestEnabled || !_settings.RepeatEnabled ||
+                CompletedFocusSessions >= _settings.RepeatCount || _settings.RestMinutes == 0)
             {
                 Complete();
                 return;
             }
-            Begin(PomodoroState.Rest, _settings.RestMinutes);
+            Begin(PomodoroState.Rest, GetDuration(_settings.RestMinutes));
         }
         else if (State == PomodoroState.Rest)
         {
-            Begin(PomodoroState.Focus, _settings.FocusMinutes);
+            Begin(PomodoroState.Focus, GetDuration(_settings.FocusMinutes));
         }
     }
 
-    private void Begin(PomodoroState state, int minutes)
+    private TimeSpan GetDuration(int value) => _settings.UseSecondsForTesting
+        ? TimeSpan.FromSeconds(value)
+        : TimeSpan.FromMinutes(value);
+
+    private void Begin(PomodoroState state, TimeSpan duration)
     {
         State = state;
-        Remaining = TimeSpan.FromMinutes(minutes);
+        Remaining = duration;
         StateChanged?.Invoke(State);
         Tick?.Invoke();
     }

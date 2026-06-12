@@ -43,7 +43,7 @@ public partial class BuddyWindow : Window
     {
         if (_timer.State == PomodoroState.Completed)
         {
-            TimerText.Text = "GOOD JOB!";
+            TimerText.Text = "집중 완료!";
             return;
         }
 
@@ -70,13 +70,21 @@ public partial class BuddyWindow : Window
         {
             FocusProps.Visibility = Visibility.Collapsed;
             RestProps.Visibility = Visibility.Visible;
-            MessageBox.Show("집중 완료! 버디가 아주 뿌듯해해요.", "PomoRing",
+            Activate();
+            MessageBox.Show(this, "모든 집중이 끝났어요! 버디가 아주 뿌듯해해요.", "PomoRing",
                 MessageBoxButton.OK, MessageBoxImage.Information);
+            Hide();
+            _settingsWindow.OpenSettings();
+            return;
         }
         RefreshTimer();
     }
 
-    private void CompleteFocusSession() => AddFocusMinutes(_settings.FocusMinutes);
+    private void CompleteFocusSession()
+    {
+        if (!_settings.UseSecondsForTesting)
+            AddFocusMinutes(_settings.FocusMinutes);
+    }
 
     private void CompleteFocusMinute() => AddFocusMinutes(1);
 
@@ -146,6 +154,12 @@ public partial class BuddyWindow : Window
 
     private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
+        if (e.ClickCount >= 2)
+        {
+            OpenSettingsAndStopTimer();
+            return;
+        }
+
         if (e.ButtonState == MouseButtonState.Pressed)
             DragMove();
     }
@@ -153,6 +167,9 @@ public partial class BuddyWindow : Window
     private void PauseMenuItem_Click(object sender, RoutedEventArgs e) => _timer.TogglePause();
 
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        => OpenSettingsAndStopTimer();
+
+    private void OpenSettingsAndStopTimer()
     {
         _timer.Stop();
         Hide();

@@ -4,6 +4,8 @@ public sealed class PomodoroSettings
 {
     public string CharacterType { get; set; } = "Cat";
     public bool CountUpEnabled { get; set; }
+    public bool RestEnabled { get; set; } = true;
+    public bool UseSecondsForTesting { get; set; }
     public int FocusMinutes { get; set; } = 25;
     public int RestMinutes { get; set; } = 5;
     public bool RepeatEnabled { get; set; } = true;

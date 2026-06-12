@@ -49,14 +49,12 @@
 
                     <!-- character-specific ears -->
                     <Canvas x:Name="CatEars">
-                        <Rectangle Fill="#403536" Width="6" Height="6" Canvas.Left="42" Canvas.Top="19"/>
-                        <Rectangle Fill="#403536" Width="6" Height="6" Canvas.Left="102" Canvas.Top="19"/>
-                        <Rectangle Fill="#403536" Width="12" Height="6" Canvas.Left="42" Canvas.Top="25"/>
-                        <Rectangle Fill="#403536" Width="12" Height="6" Canvas.Left="96" Canvas.Top="25"/>
-                        <Rectangle Fill="#403536" Width="18" Height="18" Canvas.Left="42" Canvas.Top="31"/>
-                        <Rectangle Fill="#403536" Width="18" Height="18" Canvas.Left="90" Canvas.Top="31"/>
-                        <Rectangle Fill="#F38B76" Width="6" Height="12" Canvas.Left="48" Canvas.Top="31"/>
-                        <Rectangle Fill="#F38B76" Width="6" Height="12" Canvas.Left="96" Canvas.Top="31"/>
+                        <Path Data="M41,47 L50,24 L66,46 Z" Fill="#D6A276" Stroke="#403536"
+                              StrokeThickness="5" StrokeLineJoin="Round"/>
+                        <Path Data="M84,46 L100,24 L109,47 Z" Fill="#D6A276" Stroke="#403536"
+                              StrokeThickness="5" StrokeLineJoin="Round"/>
+                        <Path Data="M48,42 L51,32 L58,42 Z" Fill="#F3A9A2"/>
+                        <Path Data="M92,42 L99,32 L102,42 Z" Fill="#F3A9A2"/>
                     </Canvas>
                     <Canvas x:Name="BunnyEars" Visibility="Collapsed">
                         <Rectangle Fill="#403536" Width="20" Height="48" Canvas.Left="45" Canvas.Top="0"/>
