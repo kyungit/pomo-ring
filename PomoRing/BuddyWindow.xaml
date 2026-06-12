@@ -1,0 +1,139 @@
+<Window x:Class="PomoRing.BuddyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="132" Height="132" WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" Topmost="True" ShowInTaskbar="False" ResizeMode="NoResize"
+        UseLayoutRounding="True" SnapsToDevicePixels="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.ContextMenu>
+        <ContextMenu FontFamily="Consolas">
+            <MenuItem x:Name="PauseMenuItem" Header="일시정지" Click="PauseMenuItem_Click"/>
+            <MenuItem Header="설정 다시 열기" Click="SettingsMenuItem_Click"/>
+            <MenuItem Header="오늘 집중 시간" Click="TodayMenuItem_Click"/>
+            <Separator/>
+            <MenuItem Header="종료" Click="ExitMenuItem_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid>
+        <Grid x:Name="TimerBubble" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,2,0,0">
+            <Border Background="{StaticResource Paper}" BorderBrush="{StaticResource Ink}" BorderThickness="3" Padding="10,5">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle x:Name="StateDot" Width="7" Height="7" Fill="{StaticResource Peach}" Margin="0,0,7,0"/>
+                    <TextBlock x:Name="TimerText" Text="25:00" FontWeight="Black" FontSize="13"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Viewbox Width="102" Height="90" Stretch="Uniform" HorizontalAlignment="Center"
+                 VerticalAlignment="Top" Margin="0,29,0,0">
+        <Canvas Width="150" Height="132">
+            <Rectangle Fill="#35403536" Width="90" Height="8" Canvas.Left="30" Canvas.Top="120"/>
+            <Grid x:Name="BuddyBody" Width="150" Height="124" Canvas.Left="0" Canvas.Top="0" RenderTransformOrigin=".5,1">
+                <Grid.RenderTransform><TranslateTransform/></Grid.RenderTransform>
+
+                <Canvas x:Name="Cat" Width="150" Height="124">
+                    <!-- character-specific tails -->
+                    <Canvas x:Name="CatTail">
+                        <Rectangle Fill="#403536" Width="12" Height="30" Canvas.Left="112" Canvas.Top="75"/>
+                        <Rectangle Fill="#D6A276" Width="6" Height="18" Canvas.Left="115" Canvas.Top="78"/>
+                    </Canvas>
+                    <Canvas x:Name="BunnyTail" Visibility="Collapsed">
+                        <Rectangle Fill="#403536" Width="20" Height="20" Canvas.Left="101" Canvas.Top="83"/>
+                        <Rectangle Fill="#F1D8C2" Width="12" Height="12" Canvas.Left="105" Canvas.Top="87"/>
+                    </Canvas>
+                    <Rectangle Fill="#403536" Width="54" Height="36" Canvas.Left="48" Canvas.Top="76"/>
+                    <Rectangle x:Name="BodyCoat" Fill="#D6A276" Width="42" Height="30" Canvas.Left="54" Canvas.Top="76"/>
+                    <Rectangle x:Name="BellyCoat" Fill="#F4C89A" Width="18" Height="18" Canvas.Left="66" Canvas.Top="88"/>
+                    <Rectangle Fill="#403536" Width="12" Height="12" Canvas.Left="48" Canvas.Top="106"/>
+                    <Rectangle Fill="#403536" Width="12" Height="12" Canvas.Left="90" Canvas.Top="106"/>
+
+                    <!-- character-specific ears -->
+                    <Canvas x:Name="CatEars">
+                        <Rectangle Fill="#403536" Width="6" Height="6" Canvas.Left="42" Canvas.Top="19"/>
+                        <Rectangle Fill="#403536" Width="6" Height="6" Canvas.Left="102" Canvas.Top="19"/>
+                        <Rectangle Fill="#403536" Width="12" Height="6" Canvas.Left="42" Canvas.Top="25"/>
+                        <Rectangle Fill="#403536" Width="12" Height="6" Canvas.Left="96" Canvas.Top="25"/>
+                        <Rectangle Fill="#403536" Width="18" Height="18" Canvas.Left="42" Canvas.Top="31"/>
+                        <Rectangle Fill="#403536" Width="18" Height="18" Canvas.Left="90" Canvas.Top="31"/>
+                        <Rectangle Fill="#F38B76" Width="6" Height="12" Canvas.Left="48" Canvas.Top="31"/>
+                        <Rectangle Fill="#F38B76" Width="6" Height="12" Canvas.Left="96" Canvas.Top="31"/>
+                    </Canvas>
+                    <Canvas x:Name="BunnyEars" Visibility="Collapsed">
+                        <Rectangle Fill="#403536" Width="20" Height="48" Canvas.Left="45" Canvas.Top="0"/>
+                        <Rectangle Fill="#403536" Width="20" Height="48" Canvas.Left="85" Canvas.Top="0"/>
+                        <Rectangle Fill="#EBAFA9" Width="8" Height="35" Canvas.Left="51" Canvas.Top="6"/>
+                        <Rectangle Fill="#EBAFA9" Width="8" Height="35" Canvas.Left="91" Canvas.Top="6"/>
+                    </Canvas>
+                    <Rectangle Fill="#403536" Width="72" Height="54" Canvas.Left="39" Canvas.Top="43"/>
+                    <Rectangle x:Name="HeadCoat" Fill="#D6A276" Width="60" Height="48" Canvas.Left="45" Canvas.Top="43"/>
+                    <Rectangle x:Name="MuzzleCoat" Fill="#F4C89A" Width="36" Height="24" Canvas.Left="57" Canvas.Top="67"/>
+
+                    <!-- face -->
+                    <Rectangle x:Name="LeftEye" Fill="#403536" Width="6" Height="9" Canvas.Left="57" Canvas.Top="58"/>
+                    <Rectangle x:Name="RightEye" Fill="#403536" Width="6" Height="9" Canvas.Left="87" Canvas.Top="58"/>
+                    <Rectangle x:Name="SleepLeftEye" Visibility="Collapsed" Fill="#403536" Width="12" Height="5" Canvas.Left="54" Canvas.Top="62"/>
+                    <Rectangle x:Name="SleepRightEye" Visibility="Collapsed" Fill="#403536" Width="12" Height="5" Canvas.Left="84" Canvas.Top="62"/>
+                    <Rectangle Fill="#403536" Width="6" Height="6" Canvas.Left="72" Canvas.Top="72"/>
+                    <Rectangle Fill="#F38B76" Width="6" Height="6" Canvas.Left="54" Canvas.Top="75"/>
+                    <Rectangle Fill="#F38B76" Width="6" Height="6" Canvas.Left="90" Canvas.Top="75"/>
+
+                    <!-- evolution accessories -->
+                    <Canvas x:Name="Scarf" Visibility="Collapsed">
+                        <Rectangle Fill="#79B99A" Width="48" Height="7" Canvas.Left="51" Canvas.Top="94"/>
+                        <Rectangle Fill="#79B99A" Width="7" Height="18" Canvas.Left="91" Canvas.Top="98"/>
+                    </Canvas>
+                    <Canvas x:Name="StarPin" Visibility="Collapsed">
+                        <Rectangle Fill="#F8CE68" Width="7" Height="21" Canvas.Left="107" Canvas.Top="48"/>
+                        <Rectangle Fill="#F8CE68" Width="21" Height="7" Canvas.Left="100" Canvas.Top="55"/>
+                    </Canvas>
+                    <Canvas x:Name="Crown" Visibility="Collapsed">
+                        <Rectangle Fill="#403536" Width="42" Height="6" Canvas.Left="54" Canvas.Top="22"/>
+                        <Rectangle Fill="#F8CE68" Width="36" Height="12" Canvas.Left="57" Canvas.Top="10"/>
+                        <Rectangle Fill="#F8CE68" Width="8" Height="10" Canvas.Left="57" Canvas.Top="2"/>
+                        <Rectangle Fill="#F8CE68" Width="8" Height="10" Canvas.Left="71" Canvas.Top="2"/>
+                        <Rectangle Fill="#F8CE68" Width="8" Height="10" Canvas.Left="85" Canvas.Top="2"/>
+                    </Canvas>
+
+                    <!-- focus desk -->
+                    <Canvas x:Name="FocusProps">
+                        <Rectangle Fill="#403536" Width="108" Height="7" Canvas.Left="21" Canvas.Top="105"/>
+                        <Rectangle Fill="#A96F56" Width="102" Height="6" Canvas.Left="24" Canvas.Top="105"/>
+                        <Rectangle Fill="#403536" Width="7" Height="14" Canvas.Left="30" Canvas.Top="111"/>
+                        <Rectangle Fill="#403536" Width="7" Height="14" Canvas.Left="113" Canvas.Top="111"/>
+                        <Rectangle Fill="#403536" Width="38" Height="23" Canvas.Left="56" Canvas.Top="82"/>
+                        <Rectangle Fill="#B8D9D2" Width="30" Height="15" Canvas.Left="60" Canvas.Top="86"/>
+                        <Rectangle Fill="#403536" Width="8" Height="5" Canvas.Left="71" Canvas.Top="91"/>
+                    </Canvas>
+
+                    <!-- rest cushion and mug -->
+                    <Canvas x:Name="RestProps" Visibility="Collapsed">
+                        <!-- soft pillow -->
+                        <Rectangle Fill="#403536" Width="86" Height="25" Canvas.Left="32" Canvas.Top="96"/>
+                        <Rectangle Fill="#FFF6DB" Width="76" Height="15" Canvas.Left="37" Canvas.Top="101"/>
+                        <Rectangle Fill="#F4C5C0" Width="6" Height="6" Canvas.Left="43" Canvas.Top="105"/>
+                        <Rectangle Fill="#F4C5C0" Width="6" Height="6" Canvas.Left="101" Canvas.Top="105"/>
+                        <!-- pink heart blanket -->
+                        <Rectangle Fill="#403536" Width="100" Height="41" Canvas.Left="25" Canvas.Top="82"/>
+                        <Rectangle Fill="#EFAFAE" Width="90" Height="31" Canvas.Left="30" Canvas.Top="87"/>
+                        <Rectangle Fill="#F8CFCA" Width="90" Height="7" Canvas.Left="30" Canvas.Top="87"/>
+                        <Rectangle Fill="#D98D91" Width="5" Height="22" Canvas.Left="35" Canvas.Top="94"/>
+                        <Rectangle Fill="#D98D91" Width="5" Height="22" Canvas.Left="110" Canvas.Top="94"/>
+                        <!-- tiny pixel hearts -->
+                        <Rectangle Fill="#FFF0E8" Width="6" Height="6" Canvas.Left="51" Canvas.Top="99"/>
+                        <Rectangle Fill="#FFF0E8" Width="6" Height="6" Canvas.Left="63" Canvas.Top="99"/>
+                        <Rectangle Fill="#FFF0E8" Width="6" Height="6" Canvas.Left="57" Canvas.Top="105"/>
+                        <Rectangle Fill="#FFF0E8" Width="6" Height="6" Canvas.Left="86" Canvas.Top="98"/>
+                        <Rectangle Fill="#FFF0E8" Width="6" Height="6" Canvas.Left="98" Canvas.Top="98"/>
+                        <Rectangle Fill="#FFF0E8" Width="6" Height="6" Canvas.Left="92" Canvas.Top="104"/>
+                        <!-- folded edge and face peeking above blanket -->
+                        <Rectangle Fill="#FFF0E8" Width="80" Height="5" Canvas.Left="35" Canvas.Top="113"/>
+                        <Rectangle Fill="#403536" Width="48" Height="7" Canvas.Left="51" Canvas.Top="79"/>
+                        <TextBlock Text="Z" FontWeight="Black" FontSize="18" Foreground="#79B99A" Canvas.Left="112" Canvas.Top="34"/>
+                        <TextBlock Text="z" FontWeight="Black" FontSize="12" Foreground="#79B99A" Canvas.Left="104" Canvas.Top="53"/>
+                    </Canvas>
+                </Canvas>
+            </Grid>
+        </Canvas>
+        </Viewbox>
+    </Grid>
+</Window>
