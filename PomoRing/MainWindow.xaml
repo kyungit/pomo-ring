@@ -123,7 +123,7 @@
                                 <StackPanel>
                                     <TextBlock Style="{StaticResource Label}" Text="집중 시간"/>
                                     <Grid>
-                                        <TextBox x:Name="FocusMinutesBox" Text="25" Padding="12,0,48,0"/>
+                                        <TextBox x:Name="FocusMinutesBox" Text="50" Padding="12,0,48,0"/>
                                         <TextBlock x:Name="FocusUnitText" Text="분" FontWeight="Bold" Foreground="#A9907E"
                                                    HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"/>
                                     </Grid>
@@ -131,7 +131,7 @@
                                 <StackPanel Grid.Column="2" x:Name="RestTimePanel">
                                     <TextBlock Style="{StaticResource Label}" Text="휴식 시간"/>
                                     <Grid>
-                                        <TextBox x:Name="RestMinutesBox" Text="5" Padding="12,0,48,0"/>
+                                        <TextBox x:Name="RestMinutesBox" Text="10" Padding="12,0,48,0"/>
                                         <TextBlock x:Name="RestUnitText" Text="분" FontWeight="Bold" Foreground="#A9907E"
                                                    HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"/>
                                     </Grid>
@@ -139,7 +139,7 @@
                             </Grid>
                         </Border>
 
-                        <Border Background="#F6EAF0" CornerRadius="10" Padding="12" Margin="0,10,0,0">
+                        <Border x:Name="SecondsTestPanel" Visibility="Collapsed" Background="#F6EAF0" CornerRadius="10" Padding="12" Margin="0,10,0,0">
                             <StackPanel>
                                 <CheckBox x:Name="SecondsTestCheck" Content="빠른 테스트: 시간을 초 단위로 사용"
                                           Checked="SecondsTestCheck_Changed" Unchecked="SecondsTestCheck_Changed"/>

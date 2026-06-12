@@ -26,7 +26,7 @@ public partial class MainWindow : Window
         CountdownRadio.IsChecked = !_data.Settings.CountUpEnabled;
         PomodoroCheck.IsChecked = _data.Settings.RestEnabled && _data.Settings.RepeatEnabled;
         RepeatCountBox.Text = _data.Settings.RepeatCount.ToString();
-        SecondsTestCheck.IsChecked = _data.Settings.UseSecondsForTesting;
+        SecondsTestCheck.IsChecked = false;
         ShowTimerCheck.IsChecked = _data.Settings.ShowTimer;
 
         if (_data.Settings.CharacterType == "Dog")
@@ -81,7 +81,7 @@ public partial class MainWindow : Window
         settings.CountUpEnabled = isCountUp;
         settings.CharacterType = BunnyRadio.IsChecked == true ? "Bunny" : "Cat";
         settings.RestEnabled = pomodoroEnabled;
-        settings.UseSecondsForTesting = !isCountUp && SecondsTestCheck.IsChecked == true;
+        settings.UseSecondsForTesting = false;
         settings.FocusMinutes = isCountUp ? _data.Settings.FocusMinutes : int.Parse(FocusMinutesBox.Text);
         settings.RestMinutes = isCountUp || !pomodoroEnabled ? _data.Settings.RestMinutes : int.Parse(RestMinutesBox.Text);
         settings.RepeatEnabled = !isCountUp && pomodoroEnabled;
@@ -117,13 +117,17 @@ public partial class MainWindow : Window
 
     private void UpdateTimerModeUi()
     {
-        if (CountdownSettings == null || CountupRadio == null)
+        if (CountdownSettings == null || CountupRadio == null || SecondsTestPanel == null)
             return;
 
         var countUp = CountupRadio.IsChecked == true;
         CountdownSettings.IsEnabled = !countUp;
         CountdownSettings.IsHitTestVisible = !countUp;
         CountdownSettings.Opacity = countUp ? .52 : 1;
+        SecondsTestPanel.IsEnabled = !countUp;
+        SecondsTestPanel.IsHitTestVisible = !countUp;
+        SecondsTestPanel.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(
+            countUp ? "#E7E4DF" : "#F6EAF0"));
         CountdownCard.Background = countUp ? Brushes.White : (Brush)FindResource("Cream");
         CountupCard.Background = countUp ? (Brush)FindResource("Cream") : Brushes.White;
         StartButton.Content = countUp ? "▶ 카운트업 시작" : "▶ 집중 시작";
